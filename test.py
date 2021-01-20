@@ -191,7 +191,6 @@ class Yolo4(object):
 
     def detect_image(self, image, model_image_size=(608, 608)):
         start = timer()
-
         boxed_image = letterbox_image(image, tuple(reversed(model_image_size)))
         image_data = np.array(boxed_image, dtype='float32')
         print(image_data.shape)
@@ -223,7 +222,7 @@ class Yolo4(object):
             box = out_boxes[i]
             score = out_scores[i]
 
-            label = '{}   %{:.2f}'.format(predicted_class, score)
+            label = '{}   {:.2f}%'.format(predicted_class, score*100)
             draw = ImageDraw.Draw(image)
             label_size = draw.textsize(label, font)
             sc = '{:.2f}%'.format(score*100)
@@ -249,7 +248,9 @@ class Yolo4(object):
             ll.append({'name': predicted_class,
                        'score': sc, 'position': p})
 
-            '''if top - label_size[1] >= 0:
+            # cv2.rectangle(image, (int(left), int(top)),
+            #               (int(right), int(bottom)), (0, 255, 0), 5)
+            if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
             else:
                 text_origin = np.array([left, top + 1])
@@ -263,8 +264,9 @@ class Yolo4(object):
                 [tuple(text_origin), tuple(text_origin + label_size)],
                 fill=self.colors[c])
             draw.text(text_origin, label, fill=(0, 0, 0), font=font)
-            del draw'''
+            del draw
 
+        image.save('abc.jpg')
         end = timer()
 
         return ll
