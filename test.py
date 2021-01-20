@@ -246,11 +246,8 @@ class Yolo4(object):
             # }
             z += 1
             listLaybel['item'+str(z)] = name
-            ll
-            if predicted_class not in la:
-                la.append(predicted_class)
-                ll.append({'name': predicted_class,
-                           'score': sc, 'position': p})
+            ll.append({'name': predicted_class,
+                       'score': sc, 'position': p})
 
             '''if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
