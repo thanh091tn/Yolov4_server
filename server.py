@@ -1,4 +1,4 @@
-from flask import Flask, request, flash, redirect
+from flask import Flask, request, flash, redirect, send_file
 from flask_restful import Api, Resource
 import base64
 from test import Yolo4
@@ -9,7 +9,7 @@ from pprint import pprint
 import json
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='img')
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 CORS(app)
 api = Api(app)
@@ -44,6 +44,10 @@ class UploadImage(Resource):
             result = yolo4_model.detect_image(
                 image, model_image_size=model_image_size)
             return result
+
+    def get(self):
+        filename = 'abc.jpg'
+        return send_file(filename, mimetype='image/jpg')
 
 
 class DetectLicence(Resource):

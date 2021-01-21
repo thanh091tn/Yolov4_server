@@ -266,7 +266,8 @@ class Yolo4(object):
             draw.text(text_origin, label, fill=(0, 0, 0), font=font)
             del draw
 
-        image.save('abc.jpg')
+        image.save('img/abc.jpg')
+        print(Path().absolute())
         end = timer()
 
         return ll
